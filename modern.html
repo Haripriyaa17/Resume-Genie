@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generated Resume</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+        }
+        
+        .profile-pic {
+            width: 200px;
+            height: 300px;
+            object-fit: cover;
+            border: 10px solid #654d56;
+        }
+        
+        .left-section {
+            background-color:  #9A879D;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        
+        .right-section {
+            padding: 20px;
+        }
+        
+        .skills-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .skills-list li {
+            background:  #7A3B69;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 5px;
+        }
+        
+        /* Progress Circle Styles */
+        .skill-container {
+            display: inline-block;
+            margin: 15px;
+            text-align: center;
+        }
+        
+        .progress-circle {
+            position: relative;
+            width: 80px;
+            height: 80px;
+        }
+        
+        .progress-circle svg {
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+        
+        .progress-circle circle {
+            fill: none;
+            stroke-width: 8;
+        }
+        
+        .progress-circle .bg {
+            stroke: #9A879D;
+        }
+        
+        .progress-circle .progress {
+            stroke:  #7A3B69;
+            stroke-linecap: round;
+            transition: stroke-dashoffset 0.5s;
+        }
+        
+        .progress-circle .percentage {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 16px;
+            font-weight: bold;
+        }
+        
+        .skill-name {
+            margin-top: 5px;
+            font-size: 12px;
+            color: #6c757d;
+        }
+        
+        /* Linear Progress Bar Styles */
+        .progress {
+            height: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            color:#654d56;
+        }
+        
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            color:#654d56
+        }
+        .custom-progress{
+            background-color: #9A879D;
+        }
+        
+        /* Print Styles */
+        @media print {
+            body {
+                padding: 0;
+                margin: 0;
+            }
+            
+            .container {
+                width: 100%;
+                max-width: 100%;
+                padding: 0;
+                margin: 0;
+            }
+            
+            .card {
+                border: none;
+                box-shadow: none !important;
+                padding: 0 !important;
+            }
+            
+            .row {
+                display: flex;
+                flex-wrap: wrap;
+            }
+            
+            .col-md-4 {
+                width: 30%;
+            }
+            
+            .col-md-8 {
+                width: 70%;
+            }
+            
+            .left-section {
+                background-color: #9A879D !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            
+            .skills-list li {
+                background-color:  #7A3B69;
+                color: white !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            
+            .print-button {
+                display: none;
+            }
+            
+            .progress-circle .progress {
+                stroke:  #7A3B69;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            
+            .progress-bar {
+                background-color:  #7A3B69;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            
+            h3.text-center, hr {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="card p-4 shadow">
+            <h3 class="text-center">Resume</h3>
+            <hr>
+            <div class="row">
+                <div class="col-md-4 left-section">
+                    <div class="text-center">
+                        <img id="r-profile-pic" class="profile-pic mb-3" src="C:\Users\harip\OneDrive\ドキュメント\haripriya\formal.jpg" alt="Profile Picture">
+                        <br><br>
+                        <div class="contact-info text-start mt-4">
+                            <p><i class="bi bi-envelope"></i> <strong>Email:</strong> <span id="r-email"></span></p>
+                            <p><i class="bi bi-telephone"></i> <strong>Phone:</strong> <span id="r-phone"></span></p>
+                            <p><i class="bi bi-geo-alt"></i> <strong>Address:</strong> <span id="r-address"></span></p>
+                        </div>
+                        <div class="mt-4">
+                            <h5 class="text-start">Skills</h5>
+                            <div id="skills-progress-container"></div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="col-md-8 right-section">
+                    <h3 id="r-name" class="mb-2"></h3>
+                    <p id="r-title" class="text-muted mb-3"></p>
+                    <h4>Professional Summary</h4>
+                    <p id="r-summary" class="mb-4"></p>
+                    
+                    <h4>Experience</h4>
+                    <div id="r-experience" class="mb-4"></div>
+                    
+                    <h4>Education</h4>
+                    <div id="r-education"></div>
+                    
+                    <div class="mt-4">
+                        <h5 class="text-start">Additional Skills</h5>
+                        <div id="additional-skills-container" class="text-start"></div>
+                    </div>
+                </div>
+            </div>
+            <button class="btn w-100 mt-3 print-button" style="color:#CFCFCD;background:#7A3B69;" onclick="printResume()">Print Resume</button>
+            <button class="btn btn-secondary ms-2" onclick="window.location.href='form.html'">Back to form</button>
+        </div>
+    </div>
+
+    <script>
+        function loadResume() {
+            // Basic info
+            document.getElementById("r-name").innerText = localStorage.getItem("name") || "Your Name";
+            document.getElementById("r-title").innerText = localStorage.getItem("title") || "Professional Title";
+            document.getElementById("r-email").innerText = localStorage.getItem("email") || "email@example.com";
+            document.getElementById("r-phone").innerText = localStorage.getItem("phone") || "(123) 456-7890";
+            document.getElementById("r-address").innerText = localStorage.getItem("address") || "Your Address";
+            document.getElementById("r-summary").innerText = localStorage.getItem("summary") || "Professional summary goes here.";
+            
+            // Format experience and education with proper formatting
+            const experience = localStorage.getItem("experience") || "Your experience details";
+            const education = localStorage.getItem("education") || "Your education details";
+            
+            document.getElementById("r-experience").innerHTML = formatTextWithLineBreaks(experience);
+            document.getElementById("r-education").innerHTML = formatTextWithLineBreaks(education);
+            
+            // Profile picture
+            document.getElementById("r-profile-pic").src = localStorage.getItem("profilePic") || "https://via.placeholder.com/150";
+            
+            // Create skills progress circles
+            createSkillsProgressCircles();
+            
+            // Create additional skills progress bars
+            createAdditionalSkillsBars();
+        }
+        
+        function formatTextWithLineBreaks(text) {
+            return text.split('\n').map(line => {
+                // Check if line appears to be a job title or institution
+                if (line.trim() && !line.startsWith('-') && !line.startsWith('•')) {
+                    return `<strong>${line}</strong>`;
+                }
+                // Format bullet points
+                else if (line.trim().startsWith('-') || line.trim().startsWith('•')) {
+                    return `<ul><li>${line.trim().substring(1)}</li></ul>`;
+                }
+                return `<p>${line}</p>`;
+            }).join('');
+        }
+        
+        function createSkillsProgressCircles() {
+            const skillsContainer = document.getElementById("skills-progress-container");
+            skillsContainer.innerHTML = "";
+            
+            // Get skills and their percentages (format: "Skill:90, AnotherSkill:75")
+            const skillsString = localStorage.getItem("skills") || "";
+            const skillsArray = skillsString.split(",");
+            
+            // Create a row to hold the skills
+            const row = document.createElement("div");
+            row.className = "row";
+            skillsContainer.appendChild(row);
+            
+            // Process each skill
+            skillsArray.forEach(skillItem => {
+                const parts = skillItem.trim().split(':');
+                if (parts.length === 2) {
+                    const skillName = parts[0].trim();
+                    const percentage = parseInt(parts[1].trim());
+                    
+                    if (!isNaN(percentage)) {
+                        // Create column for each skill
+                        const col = document.createElement("div");
+                        col.className = "col-6";
+                        
+                        // Create skill container
+                        const skillContainer = document.createElement("div");
+                        skillContainer.className = "skill-container";
+                        
+                        // Create progress circle
+                        const progressCircle = document.createElement("div");
+                        progressCircle.className = "progress-circle";
+                        progressCircle.setAttribute("data-percentage", percentage);
+                        
+                        // Create SVG element
+                        const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+                        svg.setAttribute("viewBox", "0 0 36 36");
+                        
+                        // Background circle
+                        const bgCircle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                        bgCircle.setAttribute("class", "bg");
+                        bgCircle.setAttribute("cx", "18");
+                        bgCircle.setAttribute("cy", "18");
+                        bgCircle.setAttribute("r", "14");
+                        
+                        // Progress circle
+                        const progCircle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                        progCircle.setAttribute("class", "progress");
+                        progCircle.setAttribute("cx", "18");
+                        progCircle.setAttribute("cy", "18");
+                        progCircle.setAttribute("r", "14");
+                        
+                        // Percentage text
+                        const percentageDiv = document.createElement("div");
+                        percentageDiv.className = "percentage";
+                        percentageDiv.innerText = percentage + "%";
+                        
+                        // Skill name
+                        const skillNameDiv = document.createElement("div");
+                        skillNameDiv.className = "skill-name";
+                        skillNameDiv.innerText = skillName;
+                        
+                        // Append elements
+                        svg.appendChild(bgCircle);
+                        svg.appendChild(progCircle);
+                        progressCircle.appendChild(svg);
+                        progressCircle.appendChild(percentageDiv);
+                        skillContainer.appendChild(progressCircle);
+                        skillContainer.appendChild(skillNameDiv);
+                        col.appendChild(skillContainer);
+                        row.appendChild(col);
+                    }
+                }
+            });
+            
+            // Initialize the progress circles
+            initializeProgressCircles();
+        }
+        
+        function createAdditionalSkillsBars() {
+            const additionalSkillsContainer = document.getElementById("additional-skills-container");
+            additionalSkillsContainer.innerHTML = "";
+            
+            // Get additional skills and their percentages (format: "Skill:90, AnotherSkill:75")
+            const additionalSkillsString = localStorage.getItem("additionalSkills") || "";
+            const additionalSkillsArray = additionalSkillsString.split(",");
+            
+            // Process each additional skill
+            additionalSkillsArray.forEach(skillItem => {
+                const parts = skillItem.trim().split(':');
+                if (parts.length === 2) {
+                    const skillName = parts[0].trim();
+                    const percentage = parseInt(parts[1].trim());
+                    
+                    if (!isNaN(percentage)) {
+                        // Create skill container
+                        const skillContainer = document.createElement("div");
+                        skillContainer.className = "mb-3";
+                        
+                        // Create label div with percentage
+                        const labelDiv = document.createElement("div");
+                        labelDiv.className = "progress-label";
+                        
+                        const nameSpan = document.createElement("span");
+                        nameSpan.innerText = skillName;
+                        
+                        const percentSpan = document.createElement("span");
+                        percentSpan.innerText = percentage + "%";
+                        
+                        labelDiv.appendChild(nameSpan);
+                        labelDiv.appendChild(percentSpan);
+                        
+                        // Create progress container
+                        const progressContainer = document.createElement("div");
+                        progressContainer.className = "progress";
+                        
+                        // Create progress bar
+                        const progressBar = document.createElement("div");
+                        progressBar.className = "progress-bar custom-progress";
+                        progressBar.setAttribute("role", "progressbar");
+                        progressBar.style.width = percentage + "%";
+                        progressBar.setAttribute("aria-valuenow", percentage);
+                        progressBar.setAttribute("aria-valuemin", "0");
+                        progressBar.setAttribute("aria-valuemax", "100");
+                        
+                        // Append elements
+                        progressContainer.appendChild(progressBar);
+                        skillContainer.appendChild(labelDiv);
+                        skillContainer.appendChild(progressContainer);
+                        additionalSkillsContainer.appendChild(skillContainer);
+                    }
+                }
+            });
+        }
+        
+        function initializeProgressCircles() {
+            // Calculate circle properties
+            const circles = document.querySelectorAll('.progress-circle');
+            const circleLength = 2 * Math.PI * 14; // 2πr where r=14 is the radius
+            
+            circles.forEach(function(circle) {
+                const percentage = circle.getAttribute('data-percentage');
+                const progressCircle = circle.querySelector('.progress');
+                const offset = circleLength - (circleLength * percentage / 100);
+                
+                // Set the stroke-dasharray and stroke-dashoffset
+                progressCircle.style.strokeDasharray = circleLength;
+                progressCircle.style.strokeDashoffset = offset;
+            });
+        }
+        
+        function printResume() {
+            window.print();
+        }
+        
+        // Add example data to localStorage for testing if not already present
+        function addExampleData() {
+            if (!localStorage.getItem("skills")) {
+                localStorage.setItem("skills", "HTML:90, CSS:85, JavaScript:80, React:75");
+            }
+            if (!localStorage.getItem("additionalSkills")) {
+                localStorage.setItem("additionalSkills", "Team Leadership:90, Problem Solving:85, Communication:95, Time Management:80");
+            }
+            if (!localStorage.getItem("title")) {
+                localStorage.setItem("title", "Web Developer");
+            }
+            if (!localStorage.getItem("summary")) {
+                localStorage.setItem("summary", "Dedicated web developer with 5+ years of experience in creating responsive and user-friendly websites. Proficient in front-end and back-end technologies with a strong focus on performance optimization.");
+            }
+        }
+        
+        // Initialize the page
+        window.onload = function() {
+            addExampleData(); // Add example data for testing
+            loadResume();
+        };
+    </script>
+</body>
+</html>

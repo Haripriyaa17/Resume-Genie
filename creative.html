@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Resume</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        body {
+            background-color: #c8b6e2;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .resume-container {
+            background-color: white;
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin: 40px auto;
+            max-width: 900px;
+            overflow: hidden;
+        }
+        
+        .header-section {
+            padding: 40px;
+            border-bottom-left-radius: 25px;
+            border-bottom-right-radius: 25px;
+        }
+        
+        .profile-img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            background-color: #f8a5c2;
+            padding: 5px;
+        }
+        
+        .professional-title {
+            display: inline-block;
+            background-color: #4169e1;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        
+        .section-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .section-number {
+            background-color: white;
+            color: #333;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .timeline-marker {
+            position: absolute;
+            left: 0;
+            top: 5px;
+            width: 15px;
+            height: 15px;
+            background-color: #f8a5c2;
+            border-radius: 50%;
+        }
+        
+        .timeline-marker::before {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 15px;
+            height: calc(100% + 30px);
+            width: 1px;
+            background-color: #f8a5c2;
+        }
+        
+        .timeline-item:last-child .timeline-marker::before {
+            display: none;
+        }
+        
+        .skill-tag {
+            background-color: #f8a5c2;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            font-size: 12px;
+        }
+        
+        .contact-info {
+            background-color: #ffe6f2;
+            border-radius: 15px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+        
+        /* Skill Progress Bars */
+        .skill-progress {
+            margin-bottom: 15px;
+        }
+        
+        .skill-name {
+            margin-bottom: 5px;
+            font-weight: 500;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .progress {
+            height: 10px;
+            border-radius: 10px;
+            background-color: #e9ecef;
+        }
+        
+        .progress-bar {
+            background-color: #f8a5c2;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="resume-container">
+        <!-- Header Section -->
+        <div class="header-section">
+            <div class="row align-items-center">
+                <div class="col-lg-3 text-center mb-4 mb-lg-0">
+                    <img id="resumeProfilePic" alt="Profile Picture" class="profile-img" style="display: none;">
+                </div>
+                <div class="col-lg-9">
+                    <h1 id="resumeName" class="fw-bold"></h1>
+                    <div id="resumeTitle" class="professional-title"></div>
+                    <div class="row mb-2">
+                        <div class="col-lg-6">
+                            <small id="resumeEmail" class="text-muted"></small>
+                        </div>
+                        <div class="col-lg-6">
+                            <small id="resumeWebsite" class="text-muted"></small>
+                        </div>
+                    </div>
+                    <p id="resumeSummary" class="text-muted"></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="container py-5">
+            <div class="row">
+                <!-- Left Column -->
+                <div class="col-lg-6 mb-5">
+                    <!-- Work Experience Section -->
+                    <div class="section-title">
+                        <h5 class="fw-bold">WORK EXPERIENCES</h5>
+                        <div class="section-number">01</div>
+                    </div>
+                    
+                    <div id="experienceSection">
+                        <!-- Work experience content will be populated here -->
+                    </div>
+                    
+                    <!-- Skills Progress Bars Section -->
+                    <div class="section-title mt-5">
+                        <h5 class="fw-bold">SKILLS PROFICIENCY</h5>
+                        <div class="section-number">02</div>
+                    </div>
+                    
+                    <div id="skillProgressSection">
+                        <!-- Skill progress bars will be populated here -->
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="col-lg-6 mb-5">
+                    <!-- Skills Section -->
+                    <div class="section-title">
+                        <h5 class="fw-bold">SKILLS & EXPERTISE</h5>
+                        <div class="section-number">03</div>
+                    </div>
+                    
+                    <ul id="skillsList">
+                        <!-- Skills content will be populated here -->
+                    </ul>
+                    
+                    <div id="skillTags" class="mt-4">
+                        <!-- Skill tags will be populated here -->
+                    </div>
+
+                    <!-- Education Section -->
+                    <div class="section-title mt-5">
+                        <h5 class="fw-bold">EDUCATION</h5>
+                        <div class="section-number">04</div>
+                    </div>
+                    
+                    <div id="educationSection">
+                        <!-- Education content will be populated here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Information -->
+            <div class="contact-info d-flex align-items-center mt-4">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-4 mb-2 mb-md-0">
+                            <strong>Phone</strong>
+                            <p id="resumePhone" class="mb-0"></p>
+                        </div>
+                        <div class="col-md-8">
+                            <strong>Address</strong>
+                            <p id="resumeAddress" class="mb-0"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if we have data
+            const name = localStorage.getItem("name");
+            
+            // If no name is present, redirect back to form page
+            if (!name) {
+                alert("No resume data found. Please fill the form first.");
+                window.location.href = "form.html";
+                return;
+            }
+            
+            // Load data from localStorage
+            const title = localStorage.getItem("title") || "";
+            const email = localStorage.getItem("email") || "";
+            const phone = localStorage.getItem("phone") || "";
+            const address = localStorage.getItem("address") || "";
+            const summary = localStorage.getItem("summary") || "";
+            const profilePic = localStorage.getItem("profilePic");
+            
+            // Populate basic info
+            document.getElementById("resumeName").textContent = name;
+            document.getElementById("resumeTitle").textContent = title;
+            document.getElementById("resumeEmail").textContent = email;
+            document.getElementById("resumePhone").textContent = phone;
+            document.getElementById("resumeAddress").textContent = address;
+            document.getElementById("resumeSummary").textContent = summary;
+            
+            // Only show profile pic if available
+            if (profilePic && profilePic !== "https://via.placeholder.com/120") {
+                const profilePicElement = document.getElementById("resumeProfilePic");
+                profilePicElement.src = profilePic;
+                profilePicElement.style.display = "block";
+            }
+            
+            // Set website based on name only if name exists
+            if (name) {
+                document.getElementById("resumeWebsite").textContent = `www.${name.toLowerCase().replace(/\s+/g, '')}site.com`;
+            } else {
+                document.getElementById("resumeWebsite").textContent = "";
+            }
+            
+            // Populate skills
+            const skills = localStorage.getItem("skills") || "";
+            const skillsList = document.getElementById("skillsList");
+            
+            if (skills) {
+                skillsList.innerHTML = ""; // Clear default content
+                
+                // Create skill tags
+                const skillTags = document.getElementById("skillTags");
+                skillTags.innerHTML = ""; // Clear default content
+                
+                const skillsArray = skills.split(",").map(skill => skill.trim());
+                
+                // Create progress bars section for skills
+                const skillProgressSection = document.getElementById("skillProgressSection");
+                skillProgressSection.innerHTML = ""; // Clear default content
+                
+                skillsArray.forEach(skill => {
+                    if (skill) {
+                        const [skillName, skillLevel] = skill.split(":");
+                        if (skillName) {
+                            // Add skill tag
+                            const tag = document.createElement("span");
+                            tag.className = "skill-tag";
+                            tag.textContent = skillName;
+                            skillTags.appendChild(tag);
+                            
+                            // Add to skills list
+                            const item = document.createElement("li");
+                            item.textContent = skillName + (skillLevel ? ` (${skillLevel}%)` : "");
+                            skillsList.appendChild(item);
+                            
+                            // Add progress bar
+                            const level = skillLevel ? parseInt(skillLevel) : 75; // Default to 75% if no level provided
+                            
+                            const progressHTML = `
+                                <div class="skill-progress">
+                                    <div class="skill-name">
+                                        <span>${skillName}</span>
+                                        <span>${level}%</span>
+                                    </div>
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" style="width: ${level}%" 
+                                            aria-valuenow="${level}" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                            `;
+                            
+                            skillProgressSection.innerHTML += progressHTML;
+                        }
+                    }
+                });
+            } else {
+                // Hide skills section if no skills provided
+                skillsList.style.display = "none";
+                document.getElementById("skillProgressSection").style.display = "none";
+            }
+            
+            // Populate experience
+            const experience = localStorage.getItem("experience") || "";
+            const experienceSection = document.getElementById("experienceSection");
+            experienceSection.innerHTML = ""; // Clear default content
+            
+            if (experience && experience.trim()) {
+                const experienceBlocks = experience.split("\n\n");
+                
+                experienceBlocks.forEach((block, index) => {
+                    if (block.trim()) {
+                        const lines = block.split("\n");
+                        const firstLine = lines[0];
+                        
+                        // Parse company and position
+                        let company = "";
+                        let position = "";
+                        let year = "";
+                        
+                        if (firstLine.includes("-")) {
+                            const parts = firstLine.split("-").map(part => part.trim());
+                            company = parts[0];
+                            
+                            // Extract position and dates
+                            if (parts[1].includes("(") && parts[1].includes(")")) {
+                                position = parts[1].substring(0, parts[1].indexOf("(")).trim();
+                                year = parts[1].substring(parts[1].indexOf("(") + 1, parts[1].indexOf(")")).trim();
+                            } else {
+                                position = parts[1];
+                            }
+                        } else {
+                            // If no dash format, just use the whole line as company
+                            company = firstLine;
+                        }
+                        
+                        // Create responsibilities list
+                        const responsibilities = lines.slice(1).filter(line => line.trim()).map(line => {
+                            return `<li>${line.replace(/^[-•]\s*/, "")}</li>`;
+                        }).join("");
+                        
+                        const experienceHTML = `
+                        <div>
+                                <h6 class="fw-bold text-uppercase">${position}</h6>
+                                <p class="mb-2">${company}</p>
+                                <ul>
+                                    ${responsibilities || ""}
+                                </ul>
+                            </div>
+                        `;
+                        
+                        experienceSection.innerHTML += experienceHTML;
+                    }
+                });
+            }
+            
+            // Populate education
+            const education = localStorage.getItem("education") || "";
+            const educationSection = document.getElementById("educationSection");
+            educationSection.innerHTML = ""; // Clear default content
+            
+            if (education && education.trim()) {
+                const educationBlocks = education.split("\n\n");
+                
+                educationBlocks.forEach((block, index) => {
+                    if (block.trim()) {
+                        const lines = block.split("\n");
+                        const firstLine = lines[0];
+                        
+                        // Parse university and degree
+                        let university = "";
+                        let degree = "";
+                        let year = "";
+                        
+                        if (firstLine.includes("-")) {
+                            const parts = firstLine.split("-").map(part => part.trim());
+                            university = parts[0];
+                            
+                            // Extract degree and dates
+                            if (parts[1].includes("(") && parts[1].includes(")")) {
+                                degree = parts[1].substring(0, parts[1].indexOf("(")).trim();
+                                year = parts[1].substring(parts[1].indexOf("(") + 1, parts[1].indexOf(")")).trim();
+                            } else {
+                                degree = parts[1];
+                            }
+                        } else {
+                            // If no dash format, just use the whole line as university
+                            university = firstLine;
+                        }
+                        
+                        // Get additional details
+                        const details = lines.slice(1).filter(line => line.trim()).map(line => {
+                            return line.replace(/^[-•]\s*/, "");
+                        });
+                        
+                        const gpa = details.find(detail => detail.toLowerCase().includes("gpa")) || "";
+                        
+                        const educationHTML = `
+                            <div class="timeline-item">
+                                <div class="timeline-marker"></div>
+                                <div>
+                                    <p class="mb-1"><strong>${university}</strong></p>
+                                    <p class="mb-1 text-muted">${year}</p>
+                                    <p class="mb-0">${degree}${gpa ? ` - ${gpa}` : ""}</p>
+                                </div>
+                            </div>
+                        `;
+                        
+                        educationSection.innerHTML += educationHTML;
+                    }
+                });
+            }
+            
+            // Update section numbers after adding new section
+            const sectionNumbers = document.querySelectorAll('.section-number');
+            sectionNumbers.forEach((section, index) => {
+                section.textContent = (index + 1).toString().padStart(2, '0');
+            });
+        });
+    </script>
+</body>
+</html>
